@@ -25,22 +25,45 @@ router.get("/", auth, async (req, res) => {
 // @route   POST api/v1/contacts/
 // @desc    Add new contact
 // @access  Private
-router.post("/", (req, res) => {
-  res.json({msg: "Add contact"});
+router.post("/", [ auth, [
+  check('name', 'Please add name!').not().isEmpty()
+] ], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { name, email, phone, type } = req.body;
+  try {
+    const newContact = new Contact({
+      name,
+      email,
+      phone,
+      type,
+      // we have access to user from the auth middleware
+      user: req.user.id
+    });
+
+    const contact = await newContact.save();
+    res.json(contact);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error!');
+  }
 })
 
 // @route   PUT api/v1/contacts/:id
 // @desc    Update a contact
 // @access  Private
-router.put("/:id", (req, res) => {
-  res.json({msg: "Update contact"});
+router.put("/:id", auth, (req, res) => {
+
 });
 
 // @route   DELETE api/v1/contacts/:id
 // @desc    Delete a contact
 // @access  Private
-router.delete("/:id", (req, res) => {
-  res.json({msg: "Delete contact"});
+router.delete("/:id", auth, (req, res) => {
+  
 })
 
 
