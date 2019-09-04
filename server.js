@@ -21,7 +21,7 @@ app.use("/api/v1/auth", require("./routes/api/v1/auth"));
 app.use("/api/v1/contacts", require("./routes/api/v1/contacts"));
 
 // set port
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 5000
 
 // listen at the declared port
 app.listen(PORT, () => {
