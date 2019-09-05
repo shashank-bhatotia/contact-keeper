@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import ContactContext from '../../context/contact/contactContext';
 
 // form to add and update contacts
 const ContactForm = () => {
+  const contactContext = useContext(ContactContext);
+
   // instead of setting each field, setting a single object i.e. contact
   const [contact, setContact] = useState({
     name: '',
@@ -20,8 +23,19 @@ const ContactForm = () => {
     });
   }
 
+  const onSubmit = e => {
+    e.preventDefault();
+    contactContext.addContact(contact);
+    setContact({
+      name: '',
+      email: '',
+      phone: '',
+      type: 'personal'
+    })
+  }
+
   return (
-    <form>
+    <form onSubmit={onSubmit}>
       <h2 className="text-primary">Add Contact</h2>
       <input type="text" placeholder="Name" name="name" value={name} onChange={onChange}/>
       <input type="email"  placeholder="Email" name="email" value={email} onChange={onChange}/>
