@@ -1,8 +1,8 @@
 import {
   ADD_CONTACT,
   DELETE_CONTACT,
-  SET_CONTACT,
-  CLEAR_CONTACT,
+  SET_CURRENT,
+  CLEAR_CURRENT,
   FILTER_CONTACTS,
   UPDATE_CONTACT,
   CLEAR_FILTER
@@ -19,6 +19,16 @@ export default (state, action) => {
       return {
         ...state,
         contacts: state.contacts.filter(contact => contact.id !== action.payload)
+      };
+    case SET_CURRENT:
+      return {
+        ...state,
+        current: action.payload
+      };
+    case CLEAR_CURRENT:
+      return {
+        ...state,
+        current: null
       };
     default:
       return state;

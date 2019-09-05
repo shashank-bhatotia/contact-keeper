@@ -5,8 +5,8 @@ import contactReducer from './contactReducer';
 import {
   ADD_CONTACT,
   DELETE_CONTACT,
-  SET_CONTACT,
-  CLEAR_CONTACT,
+  SET_CURRENT,
+  CLEAR_CURRENT,
   FILTER_CONTACTS,
   UPDATE_CONTACT,
   CLEAR_FILTER
@@ -42,9 +42,11 @@ const ContactState = props => {
         name: "Naomi Campbell",
         email: "naomi@gmail.com",
         phone: "444-444-4444",
-        type: "personal"
+        type: "professional"
       }
-    ]
+    ],
+    // whatever contact we want to edit should be added to current object and rendered on UI
+    current: null
   };
 
   // state allows us to access the state
@@ -63,8 +65,14 @@ const ContactState = props => {
   }
 
   // set current contact
+  const setCurrent = contact => {
+    dispatch({ type: SET_CURRENT, payload: contact });
+  }
 
   // clear current contact
+  const clearCurrent = () => {
+    dispatch({ type: CLEAR_CURRENT });
+  }
 
   // update contact
 
@@ -75,8 +83,11 @@ const ContactState = props => {
   return (
     <ContactContext.Provider value={{
       contacts: state.contacts,
+      current: state.current,
       addContact,
-      deleteContact
+      deleteContact,
+      setCurrent,
+      clearCurrent
     }} >
       {props.children}
     </ContactContext.Provider>
