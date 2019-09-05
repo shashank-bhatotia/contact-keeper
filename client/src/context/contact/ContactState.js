@@ -20,28 +20,29 @@ const ContactState = props => {
         id: 1,
         name: "John Doe",
         email: "john@gmail.com",
-        phone: 999-9999-999,
+        phone: "111-111-1111",
         type: "personal"
       },
       {
         id: 2,
         name: "Sarah Swanson",
         email: "sarah@gmail.com",
-        phone: 111-1111-111,
+        phone: "222-222-2222",
         type: "professional"
       },
       {
         id: 3,
         name: "Henry Kane",
         email: "henry@gmail.com",
-        phone: 2121-21-2121,
+        phone: "333-333-333",
         type: "personal"
       },
       {
         id: 4,
         name: "Naomi Campbell",
         email: "naomi@gmail.com",
-        phone: 21-3123-1233
+        phone: "444-444-4444",
+        type: "personal"
       }
     ]
   };
