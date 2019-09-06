@@ -11,7 +11,7 @@ import {
   UPDATE_CONTACT,
   CLEAR_FILTER
 } from '../types';
-import { doesNotReject } from 'assert';
+// import { doesNotReject } from 'assert';
 
 const ContactState = props => {
   const initialState = {
@@ -46,7 +46,8 @@ const ContactState = props => {
       }
     ],
     // whatever contact we want to edit should be added to current object and rendered on UI
-    current: null
+    current: null,
+    filtered: null
   };
 
   // state allows us to access the state
@@ -80,8 +81,15 @@ const ContactState = props => {
   }
 
   // filter contacts
+  const filterContacts = text => {
+    dispatch({ type: FILTER_CONTACTS, payload: text });
+  }
 
   // clear filter
+  const clearFilter = () => {
+    dispatch({ type: CLEAR_FILTER });
+  }
+
 
   return (
     <ContactContext.Provider value={{
@@ -91,7 +99,9 @@ const ContactState = props => {
       deleteContact,
       setCurrent,
       clearCurrent,
-      updateContact
+      updateContact,
+      filterContacts,
+      clearFilter
     }} >
       {props.children}
     </ContactContext.Provider>
