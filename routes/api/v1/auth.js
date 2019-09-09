@@ -15,7 +15,7 @@ const User = require('../../../models/User');
 router.get("/", auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
-    res.json({ user });
+    res.json(user);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error!');
@@ -28,10 +28,10 @@ router.get("/", auth, async (req, res) => {
 router.post("/", [
   check('email', 'Please include a valid email!').isEmail(),
   check('password', 'Please enter password!').exists()
-], async (req, res) => { 
+], async (req, res) => {
   // find the validation errors in the request and wrap them in valid object
   const errors = validationResult(req);
-  if(!errors.isEmpty()) {
+  if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
 
@@ -40,11 +40,11 @@ router.post("/", [
   try {
     let user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ msg: "Invalid credentials!"});
+      return res.status(400).json({ msg: "Invalid credentials!" });
     }
 
     const isMatch = bcrypt.compare(password, user.password);
-    if(!isMatch) {
+    if (!isMatch) {
       return res.status(400).json({ msg: "Invalid credentials!" });
     }
     // object to be sent in the token
@@ -58,7 +58,7 @@ router.post("/", [
       expiresIn: 360000
     }, (err, token) => {
       if (err) throw err;
-      res.json({ token });
+      res.json(token);
     });
   } catch (error) {
     console.error(error.message);
