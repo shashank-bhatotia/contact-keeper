@@ -11,8 +11,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  CLEAR_ERRORS,
-  CLEAR_CURRENT
+  CLEAR_ERRORS
 } from '../types';
 
 const AuthState = props => {
@@ -24,11 +23,9 @@ const AuthState = props => {
     error: null
   };
 
-  // state allows us to access the state
-  // dispatch allows to dispatch objects to the reducer
   const [state, dispatch] = useReducer(authReducer, initialState);
 
-  // load user - check which user is logged in and load that data
+  // Load User
   const loadUser = async () => {
     if (localStorage.token) {
       setAuthToken(localStorage.token);
@@ -41,16 +38,12 @@ const AuthState = props => {
         type: USER_LOADED,
         payload: res.data
       });
-
-      loadUser();
     } catch (err) {
-      dispatch({
-        type: AUTH_ERROR
-      });
-    };
+      dispatch({ type: AUTH_ERROR });
+    }
   };
 
-  // register user
+  // Register User
   const register = async formData => {
     const config = {
       headers: {
@@ -75,33 +68,55 @@ const AuthState = props => {
     }
   };
 
-  // login user
-  const login = () => console.log('login');
+  // Login User
+  const login = async formData => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
 
-  // logout user
-  const logout = () => console.log('logout');
+    try {
+      const res = await axios.post('/api/v1/auth', formData, config);
 
-  // clear errors
-  const clearErrors = () => dispatch({
-    type: CLEAR_ERRORS
-  })
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: res.data
+      });
+
+      loadUser();
+    } catch (err) {
+      dispatch({
+        type: LOGIN_FAIL,
+        payload: err.response.data.msg
+      });
+    }
+  };
+
+  // Logout
+  const logout = () => dispatch({ type: LOGOUT });
+
+  // Clear Errors
+  const clearErrors = () => dispatch({ type: CLEAR_ERRORS });
 
   return (
-    <AuthContext.Provider value={{
-      token: state.token,
-      isAuthenticated: state.isAuthenticated,
-      loading: state.loading,
-      user: state.user,
-      error: state.error,
-      register,
-      loadUser,
-      login,
-      logout,
-      clearErrors
-    }} >
+    <AuthContext.Provider
+      value={{
+        token: state.token,
+        isAuthenticated: state.isAuthenticated,
+        loading: state.loading,
+        user: state.user,
+        error: state.error,
+        register,
+        loadUser,
+        login,
+        logout,
+        clearErrors
+      }}
+    >
       {props.children}
     </AuthContext.Provider>
-  )
-}
+  );
+};
 
 export default AuthState;
