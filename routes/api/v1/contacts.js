@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../middleware/auth');
-const { check, validationResult } = require('express-validator/check');
+const auth = require('../../../middleware/auth');
+const { check, validationResult } = require('express-validator');
 
-const User = require('../models/User');
-const Contact = require('../models/Contact');
+const User = require('../../../models/User');
+const Contact = require('../../../models/Contact');
 
 // @route     GET api/v1/contacts
 // @desc      Get all users contacts
