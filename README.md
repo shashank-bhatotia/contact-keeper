@@ -2,7 +2,7 @@
 
 > Full stack MERN contact manager with React hooks, context & JWT authentication.
 
-This is the full app. The API with documented endpoints is document below.
+This is the full app. The API with documented endpoints is document [here](https://github.com/shashxalt/contact-keeper#contact-keeper-api)
 
 ## Usage
 
