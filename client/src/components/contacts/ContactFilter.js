@@ -10,7 +10,7 @@ const ContactFilter = () => {
   useEffect(() => {
     if (filtered === null) {
       text.current.value = '';
-    };
+    }
   });
 
   const onChange = e => {
@@ -18,14 +18,19 @@ const ContactFilter = () => {
       filterContacts(e.target.value);
     } else {
       clearFilter();
-    };
+    }
   };
 
   return (
     <form>
-      <input ref={text} type="text" placeholder="Filter Contacts.." onChange={onChange} />
+      <input
+        ref={text}
+        type='text'
+        placeholder='Filter Contacts...'
+        onChange={onChange}
+      />
     </form>
   );
-}
+};
 
 export default ContactFilter;

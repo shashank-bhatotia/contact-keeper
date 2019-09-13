@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const ContactSchema = mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Users'
+    ref: 'users'
   },
   name: {
     type: String,
@@ -11,10 +11,10 @@ const ContactSchema = mongoose.Schema({
   },
   email: {
     type: String,
-    required: true,
+    required: true
   },
   phone: {
-    type: String,
+    type: String
   },
   type: {
     type: String,
@@ -24,7 +24,6 @@ const ContactSchema = mongoose.Schema({
     type: Date,
     default: Date.now
   }
-})
+});
 
-// create model from schema and export it
-module.exports = mongoose.model("Contact", ContactSchema);
+module.exports = mongoose.model('contact', ContactSchema);

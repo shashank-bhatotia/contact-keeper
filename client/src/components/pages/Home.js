@@ -9,11 +9,11 @@ const Home = () => {
 
   useEffect(() => {
     authContext.loadUser();
-    // eslint-disable-next-line 
+    // eslint-disable-next-line
   }, []);
 
   return (
-    <div className="grid-2">
+    <div className='grid-2'>
       <div>
         <ContactForm />
       </div>
@@ -22,7 +22,7 @@ const Home = () => {
         <Contacts />
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Home;

@@ -18,7 +18,6 @@ const UserSchema = mongoose.Schema({
     type: Date,
     default: Date.now
   }
-})
+});
 
-// create model from schema and export it
-module.exports = mongoose.model("User", UserSchema);
+module.exports = mongoose.model('user', UserSchema);
